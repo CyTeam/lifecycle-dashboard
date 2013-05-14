@@ -1,0 +1,7 @@
+- if notice.present? || alert.present?
+  .row
+    .span12
+      - if notice.present?
+        %p.alert.alert-info= notice
+      - if alert.present?
+        %p.alert= alert
