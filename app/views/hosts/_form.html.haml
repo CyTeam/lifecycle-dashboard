@@ -1,0 +1,11 @@
+.form-inputs
+  .row
+    .span4
+      = p.input :host_name, :input_html => { :class => 'span4' }
+    .span2
+      = p.input :deployment_state, :input_html => { :class => 'span2' }
+    - unless p.object.new_record?
+      .span2
+        .delete-checkbox
+          = p.check_box '_destroy'
+          = p.label '_destroy', 'Remove'

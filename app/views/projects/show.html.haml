@@ -1,0 +1,27 @@
+%table.table.table-striped
+  %tr
+    %th Title
+    %td= @project.title
+  %tr
+    %th Project manager
+    %td
+      = @project.project_manager
+      %br
+      = mail_to @project.project_manager_email
+  %tr
+    %th Repository
+    %td= @project.repository
+  %tr
+    %th Hosts
+    %td= render :partial => 'hosts/host', :collection => @project.hosts
+
+  %tr
+    %th Project source state
+    %td
+  %tr
+    %th Project overall state
+    %td
+ 
+.form-actions
+  = link_to 'Edit', edit_project_path(@project), :class => 'btn'
+  = link_to 'List', projects_path, :class => 'btn'

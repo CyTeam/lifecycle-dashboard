@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514082839) do
+ActiveRecord::Schema.define(:version => 20130514092136) do
+
+  create_table "hosts", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "host_name"
+    t.string   "deployment_state"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.string   "project_manager"
+    t.string   "project_manager_email"
+    t.string   "repository"
+    t.string   "ruby_version"
+    t.string   "ruby_project_source"
+    t.string   "rails_version"
+    t.string   "rails_project_source"
+    t.string   "json_version"
+    t.string   "json_project_source"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
