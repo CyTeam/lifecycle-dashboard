@@ -17,11 +17,11 @@
 
   %tr
     %th Project source state
-    %td
+    %td= put_project_source_state(@project.ruby_project_source, @project.rails_project_source, @project.json_project_source)
   %tr
     %th Project overall state
     %td
- 
+
 .form-actions
   = link_to 'Edit', edit_project_path(@project), :class => 'btn'
   = link_to 'List', projects_path, :class => 'btn'
