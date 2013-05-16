@@ -4,4 +4,6 @@ class Project < ActiveRecord::Base
   has_many :hosts
   accepts_nested_attributes_for :hosts, :allow_destroy => true, :reject_if => :all_blank
 
+  validates :title, :repository, :presence => true
+  validates :project_manager_email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :if => 'project_manager_email.present?'
 end

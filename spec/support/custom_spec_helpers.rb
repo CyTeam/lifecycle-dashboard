@@ -17,9 +17,13 @@ module CustomSpecHelpers
                     :project_manager_email => 'simon@example.com',
                     :repository => 'git@github.com:huerlisi/bookyt.git',
                     :ruby_version => '1.9.3p4',
+                    :ruby_project_source => 'good',
                     :rails_version => '3.2.13',
-                    :json_version => '1.7.7')
-    
+                    :rails_project_source => 'good',
+                    :json_version => '1.7.7',
+                    :json_project_source => 'good')
+
+
     Host.create!(:project_id => 1,
                  :host_name => 'bookyt.ch',
                  :deployment_state => 'Newest, secure code')

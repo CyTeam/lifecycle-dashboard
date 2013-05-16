@@ -3,42 +3,41 @@
   .form-inputs
     .row
       .span4
-        = f.input :title, :input_html => { :class => 'span4' }
+        = f.input :title, :error => false, :hint => "Can't be blank", :input_html => { :class => 'span4' }
     .row
       .span4
         = f.input :project_manager, :input_html => { :class => 'span4' }
       .span4
-        = f.input :project_manager_email, :input_html => { :class => 'span4' }
+        = f.input :project_manager_email, :error => false, :hint => 'Needs to blank or valid email address', :input_html => { :class => 'span4' }
     .row
       .span8
-        = f.input :repository, :input_html => { :class => 'span8' }
+        = f.input :repository, :error => false, :hint => "Can't be blank", :input_html => { :class => 'span8' }
     = f.simple_fields_for :hosts do |p|
-      .form-inputs
-        .row
-          .span4
-            = p.input :host_name, :input_html => { :class => 'span4' }
+      .row
+        .span4
+          = p.input :host_name, :input_html => { :class => 'span4' }
+        .span2
+          = p.input :deployment_state, :as => :select, :collection => ['Newest, secure code', 'Old, secure code', 'Insecure code'], :input_html => { :class => 'span2' }
+        - unless p.object.new_record?
           .span2
-            = p.input :deployment_state, :as => :select, :collection => ['Newest, secure code', 'Old, secure code', 'Insecure Code'], :input_html => { :class => 'span2' }
-          - unless p.object.new_record?
-            .span2
-              .delete-checkbox
-                = p.check_box '_destroy'
-                = p.label '_destroy', 'Remove'
+            .delete-checkbox
+              = p.check_box '_destroy'
+              = p.label '_destroy', 'Remove'
     .row
       .span4
         = f.input :ruby_version, :input_html => { :class => 'span4' }
       .span2
-        = f.input :ruby_project_source, :as => :select, :collection => ['good', 'warning', 'bad'], :input_html => { :class => 'span2' }
+        = f.input :ruby_project_source, :as => :select, :collection => ['good', 'warning', 'grave'], :input_html => { :class => 'span2' }
     .row
       .span4
         = f.input :rails_version, :input_html => { :class => 'span4' }
       .span2
-        = f.input :rails_project_source, :as => :select, :collection => ['good', 'warning', 'bad'], :input_html => { :class => 'span2' }
+        = f.input :rails_project_source, :as => :select, :collection => ['good', 'warning', 'grave'], :input_html => { :class => 'span2' }
     .row
       .span4
         = f.input :json_version, :input_html => { :class => 'span4' }
       .span2
-        = f.input :json_project_source, :as => :select, :collection => ['good', 'warning', 'bad'], :input_html => { :class => 'span2' }
+        = f.input :json_project_source, :as => :select, :collection => ['good', 'warning', 'grave'], :input_html => { :class => 'span2' }
   .form-actions
     = f.button :submit
 

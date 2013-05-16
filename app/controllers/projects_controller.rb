@@ -11,7 +11,18 @@ class ProjectsController < InheritedResources::Base
 
   def create
     @project = Project.new(params[:project])
-    create! { @project }
+    create! do |success, failure|
+      success.html do
+        @project.hosts.build if @project.hosts.blank?
+        render :action => 'show'
+      end
+
+      failure.html do
+        @project.hosts.build if @project.hosts.blank?
+        render :action => 'new'
+      end
+    end
+
   end
 
   def update
