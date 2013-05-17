@@ -1,4 +1,8 @@
 - if host.host_name.present?
   = host.host_name
   = wrap_in_label(host.deployment_state)
+  .ssh.pull-right
+    %b
+      SSH connection:
+    = wrap_in_label(check_ssh_state(host.host_name))
   %br

@@ -36,6 +36,9 @@ gem 'devise'
 gem 'inherited_resources'
 gem 'has_scope'
 
+# SSH
+gem 'net-ssh'
+
 # Html preprocessor
 gem 'haml-rails'
 

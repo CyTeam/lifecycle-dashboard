@@ -6,11 +6,13 @@ feature 'As a logged in user' do
   context 'I see an index page' do
     before :all do
       prepare_before_all_tests
+
     end
 
     before :each do
       sign_in
 
+      Net::SSH.stub(:start).and_raise("Errno::ENOENT: No such file or directory - getaddrinfo")
       visit '/projects/1'
     end
 
@@ -36,6 +38,7 @@ feature 'As a logged in user' do
         expect(page).to have_link 'simon@example.com'
         expect(page).to have_content 'git@github.com:huerlisi/bookyt.git'
         expect(page).to have_content 'bookyt.ch'
+        expect(page).to have_content 'SSH connection'
         expect(page).to have_content 'Newest, secure code'
         expect(page).to have_content 'good'
         expect(page).to have_content 'good'
@@ -46,6 +49,16 @@ feature 'As a logged in user' do
       within 'table, tbody, tr' do
         expect(page).to have_link 'simon@example.com'
         expect(page).to have_xpath './/a[@href="mailto:simon@example.com"]'
+      end
+    end
+
+    scenario 'with a SSH state with a label' do
+      within 'table' do
+        expect(page).to have_selector 'b'
+        expect(page).to have_content 'SSH connection'
+        expect(page).to have_selector '.label'
+        expect(page).to have_selector '.label-important'
+        expect(page).to have_content 'bad'
       end
     end
 

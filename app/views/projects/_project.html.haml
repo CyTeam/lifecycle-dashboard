@@ -4,5 +4,5 @@
     = project.project_manager
     %br
     = mail_to project.project_manager_email
-  %td= render :partial => 'hosts/host', :collection => project.hosts
+  %td= render :partial => 'host', :collection => project.hosts
   %td= link_to 'Detail', project
