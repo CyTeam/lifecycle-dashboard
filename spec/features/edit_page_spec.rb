@@ -11,6 +11,7 @@ feature 'As a logged in user' do
     before :each do
       sign_in
 
+      Net::SSH.stub(:start).and_raise("Errno::ENOENT: No such file or directory - getaddrinfo")
       visit 'projects/1/edit'
     end
 
@@ -91,8 +92,10 @@ feature 'As a logged in user' do
     end
 
     scenario 'with a update button to see project details page' do
-      expect(page).to have_button 'Update Project'
-      click_button 'Update Project'
+      within 'form' do
+        expect(page).to have_button 'Update Project'
+        click_button 'Update Project'
+      end
       current_path.should === '/projects/1'
     end
 

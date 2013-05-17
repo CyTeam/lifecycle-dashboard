@@ -1,4 +1,5 @@
 - if host.host_name.present?
   = host.host_name
-  = wrap_in_label(host.deployment_state)
+  .pull-right
+    = wrap_in_label(host.deployment_state)
   %br

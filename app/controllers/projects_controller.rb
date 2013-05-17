@@ -22,11 +22,22 @@ class ProjectsController < InheritedResources::Base
         render :action => 'new'
       end
     end
-
   end
 
   def update
     @project = Project.find(params[:id])
     update! { @project }
+  end
+
+  def index
+    index!
+  end
+
+  def dashboard
+    good = Project.select { |project| project.overall_state === 'good' }
+    warning = Project.select { |project| project.overall_state === 'warning' }
+    bad = Project.select { |project| project.overall_state === 'bad' }
+    @projects = [bad, warning, good].flatten
+    index!
   end
 end

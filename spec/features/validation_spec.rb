@@ -10,6 +10,7 @@ feature 'Edit form validations' do
   before :each do
     sign_in
 
+    Net::SSH.stub(:start).and_raise("Errno::ENOENT: No such file or directory - getaddrinfo")
     visit 'projects/1/edit'
   end
 

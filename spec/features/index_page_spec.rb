@@ -10,6 +10,8 @@ feature 'As a logged in user' do
 
     before :each do
       sign_in
+
+      Net::SSH.stub(:start).and_raise("Errno::ENOENT: No such file or directory - getaddrinfo")
     end
 
     scenario 'with a heading "Listing projects"' do
@@ -21,7 +23,7 @@ feature 'As a logged in user' do
     end
 
     scenario 'with a table header contains "Title", "Project manager" and "Hosts"' do
-      within 'table, thead, tr' do
+      within 'table' do
         expect(page).to have_content 'Title'
         expect(page).to have_content 'Project manager'
         expect(page).to have_content 'Hosts'
@@ -29,7 +31,7 @@ feature 'As a logged in user' do
     end
 
     scenario 'with a table row contains a Project' do
-      within 'table, tbody, tr' do
+      within 'table' do
         expect(page).to have_selector '.project'
         expect(page).to have_content 'bookyt'
         expect(page).to have_content 'simon'
@@ -40,15 +42,15 @@ feature 'As a logged in user' do
       end
     end
 
-    scenario 'withi a field contains simon@example.com as link to email him' do
-      within 'table, tbody, tr' do
+    scenario 'with a field contains simon@example.com as link to email him' do
+      within 'table' do
         expect(page).to have_link 'simon@example.com'
         expect(page).to have_xpath './/a[@href="mailto:simon@example.com"]'
       end
     end
 
     scenario 'with a deployment state within a label' do
-      within 'table, tbody, tr' do
+      within 'table' do
         expect(page).to have_selector '.label'
         expect(page).to have_selector '.label-success'
         expect(page).to have_content 'Newest, secure code'
@@ -56,7 +58,7 @@ feature 'As a logged in user' do
     end
 
     scenario 'with a link to show the details about a project' do
-      within 'table, tbody, tr' do
+      within 'table' do
         expect(page).to have_link 'Detail'
         click_link 'Detail'
       end

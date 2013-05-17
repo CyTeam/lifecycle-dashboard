@@ -6,4 +6,26 @@ class Project < ActiveRecord::Base
 
   validates :title, :repository, :presence => true
   validates :project_manager_email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, :if => 'project_manager_email.present?'
+
+  def overall_state
+    state_array = [json_project_source, rails_project_source, ruby_project_source]
+
+    hosts.each do |host|
+      if host.deployment_state === 'Newest, secure code'
+        state_array << 'good'
+      elsif host.deployment_state === 'Insecure code'
+        state_array << 'bad'
+      else
+        state_array << 'warning'
+      end
+    end
+
+    if state_array.all? { |state| state === 'good' }
+      'good'
+    elsif state_array.any? { |state| state === 'bad' }
+      'bad'
+    else
+      'warning'
+    end
+  end
 end
